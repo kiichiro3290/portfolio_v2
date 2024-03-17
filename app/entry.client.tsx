@@ -4,51 +4,23 @@
  * For more information, see https://remix.run/file-conventions/entry.client
  */
 
-import { CacheProvider, ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import { RemixBrowser } from "@remix-run/react";
-import React, { startTransition } from "react";
+import { startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
-import { theme } from "./theme";
-import createCache from "@emotion/cache";
-import ClientStyleContext from "./components/ClientStyleContext";
-
-function createEmotionCache() {
-  return createCache({ key: "css" });
-}
-
-interface ClientCacheProviderProps {
-  children: React.ReactNode;
-}
-function ClientCacheProvider({ children }: ClientCacheProviderProps) {
-  const [cache, setCache] = React.useState(createEmotionCache());
-
-  const clientStyleContextValue = React.useMemo(
-    () => ({
-      reset() {
-        setCache(createEmotionCache());
-      },
-    }),
-    []
-  );
-
-  return (
-    <ClientStyleContext.Provider value={clientStyleContextValue}>
-      <CacheProvider value={cache}>{children}</CacheProvider>
-    </ClientStyleContext.Provider>
-  );
-}
+import { ClientStyleCacheProvider } from "./contexts/ClientStyleContext";
+import { ColorModeContextProvider } from "./contexts/ColorModeContext";
 
 const hydrate = () => {
   startTransition(() => {
     hydrateRoot(
       document,
-      <ClientCacheProvider>
-        <ThemeProvider theme={theme}>
+      <ClientStyleCacheProvider>
+        <ColorModeContextProvider>
           <CssBaseline />
           <RemixBrowser />
-        </ThemeProvider>
-      </ClientCacheProvider>
+        </ColorModeContextProvider>
+      </ClientStyleCacheProvider>
     );
   });
 };
