@@ -1,48 +1,20 @@
-# Welcome to Remix + Vite!
+# ポートフォリオ v2
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/future/vite) for details on supported features.
+## v1 からの変更点
 
-## Typegen
+Next.js(AppRouter)から Remix+Vite にリプレイスした．
 
-Generate types for your Cloudflare bindings in `wrangler.toml`:
+# 使用技術
 
-```sh
-npm run typegen
+| 用途          | 使用技術                                          |
+| ------------- | ------------------------------------------------- |
+| Web framework | [Remix + Vite](https://remix.run/)                |
+| UI component  | [Material UI](https://mui.com/)                   |
+| Deploy        | [Cloudflare Pages](https://pages.cloudflare.com/) |
+
+# Development
+
 ```
-
-You will need to rerun typegen whenever you make changes to `wrangler.toml`.
-
-## Development
-
-Run the Vite dev server:
-
-```sh
-npm run dev
+$ pnpm install
+$ pnpm dev
 ```
-
-To run Wrangler:
-
-```sh
-npm run build
-npm run start
-```
-
-## Deployment
-
-> [!WARNING]  
-> Cloudflare does _not_ use `wrangler.toml` to configure deployment bindings.
-> You **MUST** [configure deployment bindings manually in the Cloudflare dashboard][bindings].
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then, deploy your app to Cloudflare Pages:
-
-```sh
-npm run deploy
-```
-
-[bindings]: https://developers.cloudflare.com/pages/functions/bindings/
