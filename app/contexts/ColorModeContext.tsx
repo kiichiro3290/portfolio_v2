@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { theme } from "~/theme";
+import { darkTheme, theme } from "~/theme";
 import { parseCookies, setCookie } from "nookies";
 
 type ColorModeContextType = {
@@ -50,7 +50,9 @@ export const ColorModeContextProvider: FunctionComponent<PropsWithChildren> = ({
         mode,
       }}
     >
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={mode === "light" ? theme : darkTheme}>
+        {children}
+      </ThemeProvider>
     </ColorModeContext.Provider>
   );
 };
