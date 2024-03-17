@@ -4,10 +4,13 @@
  * For more information, see https://remix.run/file-conventions/entry.server
  */
 
+import { ThemeProvider } from "@emotion/react";
 import type { AppLoadContext, EntryContext } from "@remix-run/cloudflare";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";
+import { theme } from "./theme";
+import { CssBaseline } from "@mui/material";
 
 export default async function handleRequest(
   request: Request,
@@ -20,7 +23,10 @@ export default async function handleRequest(
   loadContext: AppLoadContext
 ) {
   const body = await renderToReadableStream(
-    <RemixServer context={remixContext} url={request.url} />,
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RemixServer context={remixContext} url={request.url} />
+    </ThemeProvider>,
     {
       signal: request.signal,
       onError(error: unknown) {

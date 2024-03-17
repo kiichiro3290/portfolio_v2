@@ -1,6 +1,6 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import * as React from "react";
+import { createContext, useMemo, useState } from "react";
 
 export interface ClientStyleContextData {
   reset: () => void;
@@ -10,7 +10,7 @@ interface ClientCacheProviderProps {
   children: React.ReactNode;
 }
 
-export const ClientStyleContext = React.createContext<ClientStyleContextData>({
+export const ClientStyleContext = createContext<ClientStyleContextData>({
   reset: () => {},
 });
 
@@ -21,9 +21,9 @@ const createEmotionCache = () => {
 export const ClientStyleCacheProvider = ({
   children,
 }: ClientCacheProviderProps) => {
-  const [cache, setCache] = React.useState(createEmotionCache());
+  const [cache, setCache] = useState(createEmotionCache());
 
-  const clientStyleContextValue = React.useMemo(
+  const clientStyleContextValue = useMemo(
     () => ({
       reset() {
         setCache(createEmotionCache());
