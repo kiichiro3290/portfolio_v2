@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, Typography, Link } from "@mui/material";
 import { theme } from "~/theme";
 
