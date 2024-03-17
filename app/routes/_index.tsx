@@ -1,4 +1,9 @@
+import { Container, Grid, Box } from "@mui/material";
 import type { MetaFunction } from "@remix-run/cloudflare";
+import { useNavigate } from "@remix-run/react";
+import { MenuIcon } from "~/components/MenuIcon";
+import { SearchWindow } from "~/components/SearchWindow";
+import { theme } from "~/theme";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,25 +16,35 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const navigate = useNavigate();
+
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix (with Vite and Cloudflare)</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://developers.cloudflare.com/pages/framework-guides/deploy-a-remix-site/"
-            rel="noreferrer"
-          >
-            Cloudflare Pages Docs - Remix guide
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
+    <Box component="div" width="100vw" height="100vh">
+      <Container
+        maxWidth="sm"
+        sx={{
+          py: {
+            xs: theme.spacing(24),
+          },
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          gap: theme.spacing(4),
+        }}
+      >
+        <Box component="div">
+          <img src="/Kiichiro.svg" alt="" height={80} width={300} />
+        </Box>
+        <SearchWindow />
+        <Grid container>
+          <Grid item xs={2}>
+            <MenuIcon
+              type="ドキュメント"
+              onClick={() => navigate("/article")}
+            />
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }
